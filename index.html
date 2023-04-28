@@ -44,16 +44,22 @@
 			outputTable.innerHTML = ""; // clear previous results
 			outputTable.innerHTML += "<tr><th>Tidsspann</th><th>Startdatum</th><th>Slutdatum</th></tr>";
 			var ranges = [
-				{ label: "3 månader efter", months: 3 },
-				{ label: "6 månader efter", months: 6 },
-				{ label: "12 månader efter", months: 12 },
-				{ label: "24 månader efter", months: 24 }
+				{ label: "3 månader efter", interval: {from: 2, to: 3} },
+				{ label: "6 månader efter", interval: {from: 5, to: 7}  },
+				{ label: "12 månader efter", interval: {from: 10, to: 14}  },
+				{ label: "24 månader efter", interval: {from: 20, to: 28}  },
+				{ label: "36 månader efter", interval: {from: 32, to: 40}  }
 			];
 			for (var i = 0; i < ranges.length; i++) {
+				console.log("hej")
 				var startDate = new Date(inputDate.getTime());
-				startDate.setMonth(startDate.getMonth() + ranges[i].months);
-				var endDate = new Date(startDate.getTime());
-				endDate.setDate(endDate.getDate() + 13);
+				startDate.setMonth(startDate.getMonth() + ranges[i].interval.from);
+				var endDate = new Date(inputDate.getTime());
+				endDate.setMonth(endDate.getMonth() + ranges[i].interval.to);
+				if (i === 0) {
+					startDate.setDate(startDate.getDate() + 15);
+					endDate.setDate(endDate.getDate() + 15);
+				}
 				outputTable.innerHTML += "<tr><td>" + ranges[i].label + "</td><td>" + formatDate(startDate) + "</td><td>" + formatDate(endDate) + "</td></tr>";
 			}
 		}
