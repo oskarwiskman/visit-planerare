@@ -44,16 +44,19 @@
 			outputTable.innerHTML = ""; // clear previous results
 			outputTable.innerHTML += "<tr><th>Tidsspann</th><th>Startdatum</th><th>Slutdatum</th></tr>";
 			var ranges = [
-				{ label: "3 månader efter", months: 3 },
-				{ label: "6 månader efter", months: 6 },
-				{ label: "12 månader efter", months: 12 },
-				{ label: "24 månader efter", months: 24 }
+				{ label: "3 månader (2.5 - 5 månader)", months: 3, startMonths: 2, endMonths: 5, startDays: 15, endDays: 0 },
+				{ label: "6 månader (5 - 10 månader)", months: 6, startMonths: 5, endMonths: 10, startDays: 0, endDays: 0 },
+				{ label: "12 månader (10 - 20 månader)", months: 12, startMonths: 10, endMonths: 20, startDays: 0, endDays: 0 },
+				{ label: "24 månader (20 - 30 månader)", months: 24, startMonths: 20, endMonths: 30, startDays: 0, endDays: 0 },
+				{ label: "36 månader (30 - 40 månader)", months: 36, startMonths: 30, endMonths: 40, startDays: 0, endDays: 0 }
 			];
 			for (var i = 0; i < ranges.length; i++) {
 				var startDate = new Date(inputDate.getTime());
-				startDate.setMonth(startDate.getMonth() + ranges[i].months);
-				var endDate = new Date(startDate.getTime());
-				endDate.setDate(endDate.getDate() + 13);
+				var endDate = new Date(inputDate.getTime());;
+				startDate.setMonth(startDate.getMonth() + ranges[i].startMonths);
+				startDate.setDate(startDate.getDate() + ranges[i].startDays);
+				endDate.setMonth(endDate.getMonth() + ranges[i].endMonths);
+				endDate.setDate(endDate.getDate() + ranges[i].endDays);
 				outputTable.innerHTML += "<tr><td>" + ranges[i].label + "</td><td>" + formatDate(startDate) + "</td><td>" + formatDate(endDate) + "</td></tr>";
 			}
 		}
